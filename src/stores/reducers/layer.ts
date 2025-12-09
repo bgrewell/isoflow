@@ -33,8 +33,8 @@ export const updateLayer = (
     const layers = view.value.layers ?? [];
     const layer = getItemByIdOrThrow(layers, id);
 
-    const updatedLayer = { ...layer.value, ...updates };
-    layers[layer.index] = updatedLayer;
+    // Directly mutate the draft (immer handles immutability)
+    Object.assign(layer.value, updates);
   });
 
   return newState;
