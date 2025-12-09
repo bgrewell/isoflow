@@ -1,6 +1,6 @@
+import { INITIAL_SCENE_STATE } from 'src/config';
 import { createLayer, updateLayer, deleteLayer } from '../layer';
 import { State } from '../types';
-import { INITIAL_SCENE_STATE } from 'src/config';
 
 describe('Layer Reducers', () => {
   const initialState: State = {

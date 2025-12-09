@@ -1,7 +1,7 @@
 import { produce } from 'immer';
 import { Layer } from 'src/types';
-import { getItemByIdOrThrow } from 'src/utils';
 import { LAYER_DEFAULTS } from 'src/config';
+import { getItemByIdOrThrow } from 'src/utils';
 import { ViewReducerContext, State } from './types';
 
 export const createLayer = (
