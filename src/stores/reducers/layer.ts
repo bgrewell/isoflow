@@ -33,7 +33,8 @@ export const updateLayer = (
     const layers = view.value.layers ?? [];
     const layer = getItemByIdOrThrow(layers, id);
 
-    layer.value = { ...layer.value, ...updates };
+    const updatedLayer = { ...layer.value, ...updates };
+    layers[layer.index] = updatedLayer;
   });
 
   return newState;
