@@ -17,7 +17,8 @@ import { getItemByIdOrThrow } from 'src/utils';
 import {
   CONNECTOR_DEFAULTS,
   RECTANGLE_DEFAULTS,
-  TEXTBOX_DEFAULTS
+  TEXTBOX_DEFAULTS,
+  LAYER_DEFAULTS
 } from 'src/config';
 
 export const useScene = () => {
@@ -40,6 +41,15 @@ export const useScene = () => {
   const items = useMemo(() => {
     return currentView.items ?? [];
   }, [currentView.items]);
+
+  const layers = useMemo(() => {
+    return (currentView.layers ?? []).map((layer) => {
+      return {
+        ...LAYER_DEFAULTS,
+        ...layer
+      };
+    });
+  }, [currentView.layers]);
 
   const colors = useMemo(() => {
     return model.colors;
@@ -275,6 +285,7 @@ export const useScene = () => {
 
   return {
     items,
+    layers,
     connectors,
     colors,
     rectangles,
