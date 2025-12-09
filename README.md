@@ -35,6 +35,65 @@ Install both the editor and isopacks from [npm](https://www.npmjs.com/package/is
 
 See our [documentation](https://isoflow.io/docs) for more information.
 
+## Docker development environment
+
+For local development using Docker, you can build and run Isoflow in a containerized environment.
+
+### Building the Docker image
+
+To build the Docker image locally:
+
+```bash
+docker build -t isoflow:dev .
+```
+
+This will:
+1. Install all dependencies from `package.json`
+2. Build the application using the `docker:build` script
+3. Create a production-ready image with Nginx serving the built files
+
+### Running the container
+
+To run the container locally:
+
+```bash
+docker run -d -p 8080:80 --name isoflow-dev isoflow:dev
+```
+
+The application will be available at `http://localhost:8080`
+
+### Development workflow with Docker
+
+**Note:** The current Dockerfile uses a multi-stage build optimized for production deployments. It builds the application in one stage and serves the compiled output with Nginx in the final stage. This means the final image doesn't include source files or Node.js, making volume mounting for live development impractical.
+
+For the best development experience with hot-reloading and live updates, we recommend running the development server directly on your host machine:
+
+```bash
+# Install dependencies
+npm install
+
+# Start the webpack dev server (runs on port 3000)
+npm start
+```
+
+This will provide:
+- Hot module replacement (HMR) for instant feedback
+- Source maps for easier debugging
+- Faster build times during development
+
+If you prefer to develop entirely in Docker, you would need to create a separate development Dockerfile that keeps the Node.js environment and runs `npm start` instead of building static files.
+
+### Stopping and removing the container
+
+```bash
+docker stop isoflow-dev
+docker rm isoflow-dev
+```
+
+### Accessing the pre-built Docker image
+
+Pre-built Docker images are also available on [Docker Hub](https://hub.docker.com/r/markmanx/isoflow/tags) if you prefer not to build locally.
+
 ## Professional support
 For professional support, please consider purchasing a license for Isoflow Pro.  Isoflow Pro includes additional features and support options.  For more information, visit [isoflow.io](https://isoflow.io).
 
