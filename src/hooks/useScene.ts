@@ -6,7 +6,8 @@ import {
   TextBox,
   Rectangle,
   ItemReference,
-  LayerOrderingAction
+  LayerOrderingAction,
+  Layer
 } from 'src/types';
 import { useUiStateStore } from 'src/stores/uiStateStore';
 import { useModelStore } from 'src/stores/modelStore';
@@ -283,6 +284,42 @@ export const useScene = () => {
     [getState, setState, currentViewId]
   );
 
+  const createLayer = useCallback(
+    (newLayer: Layer) => {
+      const newState = reducers.view({
+        action: 'CREATE_LAYER',
+        payload: newLayer,
+        ctx: { viewId: currentViewId, state: getState() }
+      });
+      setState(newState);
+    },
+    [getState, setState, currentViewId]
+  );
+
+  const updateLayer = useCallback(
+    (id: string, updates: Partial<Layer>) => {
+      const newState = reducers.view({
+        action: 'UPDATE_LAYER',
+        payload: { id, ...updates },
+        ctx: { viewId: currentViewId, state: getState() }
+      });
+      setState(newState);
+    },
+    [getState, setState, currentViewId]
+  );
+
+  const deleteLayer = useCallback(
+    (id: string) => {
+      const newState = reducers.view({
+        action: 'DELETE_LAYER',
+        payload: id,
+        ctx: { viewId: currentViewId, state: getState() }
+      });
+      setState(newState);
+    },
+    [getState, setState, currentViewId]
+  );
+
   return {
     items,
     layers,
@@ -306,6 +343,9 @@ export const useScene = () => {
     createRectangle,
     updateRectangle,
     deleteRectangle,
-    changeLayerOrder
+    changeLayerOrder,
+    createLayer,
+    updateLayer,
+    deleteLayer
   };
 };
