@@ -17,7 +17,7 @@ export const layerSchema = z.object({
   items: z.array(viewItemSchema),
   zOffset: z.number().default(0),
   visible: z.boolean().default(true),
-  transparency: z.number().min(0).max(1).default(1)
+  transparency: z.number().min(0).max(1).optional().default(1)
 });
 
 export const viewSchema = z.object({
