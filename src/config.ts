@@ -43,7 +43,8 @@ export const VIEW_DEFAULTS: Required<
 };
 
 export const VIEW_ITEM_DEFAULTS: Required<Omit<ViewItem, 'id' | 'tile'>> = {
-  labelHeight: 80
+  labelHeight: 80,
+  zIndex: 0
 };
 
 export const LAYER_DEFAULTS: Required<Omit<Layer, 'id' | 'description'>> = {
@@ -58,7 +59,8 @@ export const CONNECTOR_DEFAULTS: Required<Omit<Connector, 'id' | 'color'>> = {
   width: 10,
   description: '',
   anchors: [],
-  style: 'SOLID'
+  style: 'SOLID',
+  zIndex: 0
 };
 
 // The boundaries of the search area for the pathfinder algorithm
@@ -68,7 +70,8 @@ export const CONNECTOR_SEARCH_OFFSET = { x: 1, y: 1 };
 export const TEXTBOX_DEFAULTS: Required<Omit<TextBox, 'id' | 'tile'>> = {
   orientation: 'X',
   fontSize: 0.6,
-  content: 'Text'
+  content: 'Text',
+  zIndex: 0
 };
 
 export const TEXTBOX_PADDING = 0.2;
@@ -76,7 +79,10 @@ export const TEXTBOX_FONT_WEIGHT = 'bold';
 
 export const RECTANGLE_DEFAULTS: Required<
   Omit<Rectangle, 'id' | 'from' | 'to' | 'color'>
-> = {};
+> = {
+  transparency: 1,
+  zIndex: 0
+};
 
 export const ZOOM_INCREMENT = 0.2;
 export const MIN_ZOOM = 0.2;
