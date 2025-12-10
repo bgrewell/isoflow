@@ -20,7 +20,8 @@ export const Rectangle = ({
   const fillColor = colorValue || color.value;
 
   // Use outlineColor if provided, otherwise use the default darker variant
-  const strokeColor = outlineColor || getColorVariant(fillColor, 'dark', { grade: 2 });
+  const strokeColor =
+    outlineColor || getColorVariant(fillColor, 'dark', { grade: 2 });
 
   return (
     <IsoTileArea

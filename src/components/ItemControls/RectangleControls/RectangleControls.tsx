@@ -60,7 +60,7 @@ export const RectangleControls = ({ id }: Props) => {
       <Section>
         <ColorSelector
           onChange={(color) => {
-            updateRectangle(rectangle.id, { color });
+            updateRectangle(rectangle.id, { color, colorValue: undefined });
           }}
           activeColor={rectangle.color}
         />

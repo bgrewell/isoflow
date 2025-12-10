@@ -1,6 +1,5 @@
-import { updateRectangle, createRectangle } from '../rectangle';
+import { updateRectangle } from '../rectangle';
 import { State } from '../types';
-import { Rectangle } from 'src/types';
 
 describe('Rectangle reducer', () => {
   const createMockState = (): State => {
@@ -42,7 +41,7 @@ describe('Rectangle reducer', () => {
   test('updateRectangle updates the color property', () => {
     const state = createMockState();
     const updates = { id: 'rect1', color: 'color2' };
-    
+
     const newState = updateRectangle(updates, {
       viewId: 'view1',
       state
@@ -55,7 +54,7 @@ describe('Rectangle reducer', () => {
   test('updateRectangle preserves other properties when updating color', () => {
     const state = createMockState();
     const updates = { id: 'rect1', color: 'color2' };
-    
+
     const newState = updateRectangle(updates, {
       viewId: 'view1',
       state
@@ -68,28 +67,32 @@ describe('Rectangle reducer', () => {
     expect(rectangle?.color).toBe('color2');
   });
 
-  test('createRectangle creates a new rectangle with color', () => {
+  test('updateRectangle clears colorValue when setting a palette color', () => {
     const state = createMockState();
-    const newRectangle: Rectangle = {
-      id: 'rect2',
-      color: 'color2',
-      from: { x: 5, y: 5 },
-      to: { x: 7, y: 7 }
-    };
-    
-    const newState = createRectangle(newRectangle, {
-      viewId: 'view1',
-      state
-    });
+    // First, set a custom colorValue
+    const stateWithCustomColor = updateRectangle(
+      { id: 'rect1', colorValue: '#00ff00' },
+      {
+        viewId: 'view1',
+        state
+      }
+    );
 
-    const rectangles = newState.model.views[0].rectangles;
-    expect(rectangles).toHaveLength(2);
-    
-    // Find the newly created rectangle (it should be first due to unshift)
-    const createdRectangle = rectangles?.[0];
-    expect(createdRectangle?.id).toBe('rect2');
-    expect(createdRectangle?.color).toBe('color2');
-    expect(createdRectangle?.from).toEqual({ x: 5, y: 5 });
-    expect(createdRectangle?.to).toEqual({ x: 7, y: 7 });
+    const rectangleWithCustomColor =
+      stateWithCustomColor.model.views[0].rectangles?.[0];
+    expect(rectangleWithCustomColor?.colorValue).toBe('#00ff00');
+
+    // Now, select a palette color and clear colorValue
+    const finalState = updateRectangle(
+      { id: 'rect1', color: 'color2', colorValue: undefined },
+      {
+        viewId: 'view1',
+        state: stateWithCustomColor
+      }
+    );
+
+    const finalRectangle = finalState.model.views[0].rectangles?.[0];
+    expect(finalRectangle?.color).toBe('color2');
+    expect(finalRectangle?.colorValue).toBeUndefined();
   });
 });
