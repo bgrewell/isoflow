@@ -104,6 +104,7 @@ export const layeredArchitectureData: InitialData = {
           description: 'AWS infrastructure components',
           zOffset: 0,
           visible: true,
+          transparency: 1,
           items: [
             {
               id: 'vpc',
@@ -128,6 +129,7 @@ export const layeredArchitectureData: InitialData = {
           description: 'Kubernetes platform running on infrastructure',
           zOffset: 3,
           visible: true,
+          transparency: 1,
           items: [
             {
               id: 'k8s-cluster',
@@ -147,6 +149,7 @@ export const layeredArchitectureData: InitialData = {
           description: 'Application services deployed on the platform',
           zOffset: 6,
           visible: true,
+          transparency: 1,
           items: [
             {
               id: 'web-app',
