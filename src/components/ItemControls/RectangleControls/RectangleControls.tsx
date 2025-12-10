@@ -2,8 +2,13 @@ import React from 'react';
 import { Box, Typography, Slider, Stack, Button } from '@mui/material';
 import { useRectangle } from 'src/hooks/useRectangle';
 import { ColorSelector } from 'src/components/ColorSelector/ColorSelector';
+import { ColorPicker } from 'src/components/ColorSelector/ColorPicker';
 import { useUiStateStore } from 'src/stores/uiStateStore';
 import { useScene } from 'src/hooks/useScene';
+import {
+  RECTANGLE_DEFAULT_FILL_COLOR,
+  RECTANGLE_DEFAULT_OUTLINE_COLOR
+} from 'src/config';
 import { ControlsContainer } from '../components/ControlsContainer';
 import { Section } from '../components/Section';
 import { DeleteButton } from '../components/DeleteButton';
@@ -58,6 +63,22 @@ export const RectangleControls = ({ id }: Props) => {
             updateRectangle(rectangle.id, { color });
           }}
           activeColor={rectangle.color}
+        />
+      </Section>
+      <Section title="Custom fill color">
+        <ColorPicker
+          value={rectangle.colorValue || RECTANGLE_DEFAULT_FILL_COLOR}
+          onChange={(newColor) => {
+            updateRectangle(rectangle.id, { colorValue: newColor });
+          }}
+        />
+      </Section>
+      <Section title="Outline color">
+        <ColorPicker
+          value={rectangle.outlineColor || RECTANGLE_DEFAULT_OUTLINE_COLOR}
+          onChange={(newColor) => {
+            updateRectangle(rectangle.id, { outlineColor: newColor });
+          }}
         />
       </Section>
       <Section>
