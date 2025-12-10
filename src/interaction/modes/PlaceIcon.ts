@@ -36,12 +36,10 @@ export const PlaceIcon: ModeActions = {
       });
 
       // Calculate zIndex to place new item on top of existing items
-      const maxZIndex = Math.max(
-        0,
-        ...scene.items.map((item) => {
-          return item.zIndex ?? 0;
-        })
-      );
+      const maxZIndex = scene.items.reduce((max, item) => {
+        const itemZIndex = item.zIndex ?? 0;
+        return itemZIndex > max ? itemZIndex : max;
+      }, 0);
 
       scene.createViewItem({
         ...VIEW_ITEM_DEFAULTS,
