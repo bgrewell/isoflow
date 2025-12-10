@@ -6,7 +6,11 @@ interface AddItemControls {
   type: 'ADD_ITEM';
 }
 
-export type ItemControls = ItemReference | AddItemControls;
+interface LayerControls {
+  type: 'LAYER_CONTROLS';
+}
+
+export type ItemControls = ItemReference | AddItemControls | LayerControls;
 
 export interface Mouse {
   position: {

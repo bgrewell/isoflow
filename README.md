@@ -24,6 +24,7 @@ Isoflow is an open-core project. We offer the [Isoflow Community Edition](https:
 
 ## Key features
 - **Drag-and-drop editor** - Express your architecture with icons, regions and connectors.
+- **Visual Layers** - Create multi-tiered architecture diagrams with vertically stacked layers. [Learn more](docs/LAYERS.md)
 - **Extensible icon system** - Create your own icon library, or use plugins for existing libraries including AWS, Azure, GCP, Kubernetes, and more.
 - **Export options** - Export diagrams as code or images.
 

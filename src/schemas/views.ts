@@ -10,6 +10,15 @@ export const viewItemSchema = z.object({
   labelHeight: z.number().optional()
 });
 
+export const layerSchema = z.object({
+  id,
+  name: constrainedStrings.name,
+  description: constrainedStrings.description.optional(),
+  items: z.array(viewItemSchema),
+  zOffset: z.number().default(0),
+  visible: z.boolean().default(true)
+});
+
 export const viewSchema = z.object({
   id,
   lastUpdated: z.string().datetime().optional(),
@@ -18,7 +27,8 @@ export const viewSchema = z.object({
   items: z.array(viewItemSchema),
   rectangles: z.array(rectangleSchema).optional(),
   connectors: z.array(connectorSchema).optional(),
-  textBoxes: z.array(textBoxSchema).optional()
+  textBoxes: z.array(textBoxSchema).optional(),
+  layers: z.array(layerSchema).optional()
 });
 
 export const viewsSchema = z.array(viewSchema);

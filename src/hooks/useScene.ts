@@ -6,7 +6,8 @@ import {
   TextBox,
   Rectangle,
   ItemReference,
-  LayerOrderingAction
+  LayerOrderingAction,
+  Layer
 } from 'src/types';
 import { useUiStateStore } from 'src/stores/uiStateStore';
 import { useModelStore } from 'src/stores/modelStore';
@@ -17,7 +18,8 @@ import { getItemByIdOrThrow } from 'src/utils';
 import {
   CONNECTOR_DEFAULTS,
   RECTANGLE_DEFAULTS,
-  TEXTBOX_DEFAULTS
+  TEXTBOX_DEFAULTS,
+  LAYER_DEFAULTS
 } from 'src/config';
 
 export const useScene = () => {
@@ -40,6 +42,15 @@ export const useScene = () => {
   const items = useMemo(() => {
     return currentView.items ?? [];
   }, [currentView.items]);
+
+  const layers = useMemo(() => {
+    return (currentView.layers ?? []).map((layer) => {
+      return {
+        ...LAYER_DEFAULTS,
+        ...layer
+      };
+    });
+  }, [currentView.layers]);
 
   const colors = useMemo(() => {
     return model.colors;
@@ -273,8 +284,45 @@ export const useScene = () => {
     [getState, setState, currentViewId]
   );
 
+  const createLayer = useCallback(
+    (newLayer: Layer) => {
+      const newState = reducers.view({
+        action: 'CREATE_LAYER',
+        payload: newLayer,
+        ctx: { viewId: currentViewId, state: getState() }
+      });
+      setState(newState);
+    },
+    [getState, setState, currentViewId]
+  );
+
+  const updateLayer = useCallback(
+    (id: string, updates: Partial<Layer>) => {
+      const newState = reducers.view({
+        action: 'UPDATE_LAYER',
+        payload: { id, ...updates },
+        ctx: { viewId: currentViewId, state: getState() }
+      });
+      setState(newState);
+    },
+    [getState, setState, currentViewId]
+  );
+
+  const deleteLayer = useCallback(
+    (id: string) => {
+      const newState = reducers.view({
+        action: 'DELETE_LAYER',
+        payload: id,
+        ctx: { viewId: currentViewId, state: getState() }
+      });
+      setState(newState);
+    },
+    [getState, setState, currentViewId]
+  );
+
   return {
     items,
+    layers,
     connectors,
     colors,
     rectangles,
@@ -295,6 +343,9 @@ export const useScene = () => {
     createRectangle,
     updateRectangle,
     deleteRectangle,
-    changeLayerOrder
+    changeLayerOrder,
+    createLayer,
+    updateLayer,
+    deleteLayer
   };
 };

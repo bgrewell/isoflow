@@ -5,6 +5,7 @@ import { useInteractionManager } from 'src/interaction/useInteractionManager';
 import { Grid } from 'src/components/Grid/Grid';
 import { Cursor } from 'src/components/Cursor/Cursor';
 import { Nodes } from 'src/components/SceneLayers/Nodes/Nodes';
+import { Layers } from 'src/components/SceneLayers/Layers/Layers';
 import { Rectangles } from 'src/components/SceneLayers/Rectangles/Rectangles';
 import { Connectors } from 'src/components/SceneLayers/Connectors/Connectors';
 import { ConnectorLabels } from 'src/components/SceneLayers/ConnectorLabels/ConnectorLabels';
@@ -28,7 +29,7 @@ export const Renderer = ({ showGrid, backgroundColor }: RendererProps) => {
     return state.actions;
   });
   const { setInteractionsElement } = useInteractionManager();
-  const { items, rectangles, connectors, textBoxes } = useScene();
+  const { items, layers, rectangles, connectors, textBoxes } = useScene();
 
   useEffect(() => {
     if (!containerRef.current || !interactionsRef.current) return;
@@ -101,7 +102,11 @@ export const Renderer = ({ showGrid, backgroundColor }: RendererProps) => {
         }}
       />
       <SceneLayer>
-        <Nodes nodes={items} />
+        {layers.length > 0 ? (
+          <Layers layers={layers} />
+        ) : (
+          <Nodes nodes={items} />
+        )}
       </SceneLayer>
       <SceneLayer>
         <TransformControlsManager />

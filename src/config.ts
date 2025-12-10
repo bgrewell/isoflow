@@ -8,7 +8,8 @@ import {
   ViewItem,
   View,
   Rectangle,
-  Colors
+  Colors,
+  Layer
 } from 'src/types';
 import { CoordsUtils } from 'src/utils';
 import { customVars } from './styles/theme';
@@ -32,7 +33,7 @@ export const DEFAULT_COLOR: Colors[0] = {
 export const DEFAULT_FONT_FAMILY = 'Roboto, Arial, sans-serif';
 
 export const VIEW_DEFAULTS: Required<
-  Omit<View, 'id' | 'description' | 'lastUpdated'>
+  Omit<View, 'id' | 'description' | 'lastUpdated' | 'layers'>
 > = {
   name: 'Untitled view',
   items: [],
@@ -43,6 +44,13 @@ export const VIEW_DEFAULTS: Required<
 
 export const VIEW_ITEM_DEFAULTS: Required<Omit<ViewItem, 'id' | 'tile'>> = {
   labelHeight: 80
+};
+
+export const LAYER_DEFAULTS: Required<Omit<Layer, 'id' | 'description'>> = {
+  name: 'Untitled layer',
+  items: [],
+  zOffset: 0,
+  visible: true
 };
 
 export const CONNECTOR_DEFAULTS: Required<Omit<Connector, 'id' | 'color'>> = {

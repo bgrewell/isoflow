@@ -6,7 +6,8 @@ import {
   AddOutlined as AddIcon,
   EastOutlined as ConnectorIcon,
   CropSquareOutlined as CropSquareIcon,
-  Title as TitleIcon
+  Title as TitleIcon,
+  Layers as LayersIcon
 } from '@mui/icons-material';
 import { useUiStateStore } from 'src/stores/uiStateStore';
 import { IconButton } from 'src/components/IconButton/IconButton';
@@ -19,6 +20,9 @@ export const ToolMenu = () => {
   const { createTextBox } = useScene();
   const mode = useUiStateStore((state) => {
     return state.mode;
+  });
+  const itemControls = useUiStateStore((state) => {
+    return state.itemControls;
   });
   const uiStateStoreActions = useUiStateStore((state) => {
     return state.actions;
@@ -115,6 +119,21 @@ export const ToolMenu = () => {
           Icon={<TitleIcon />}
           onClick={createTextBoxProxy}
           isActive={mode.type === 'TEXTBOX'}
+        />
+        <IconButton
+          name="Layers"
+          Icon={<LayersIcon />}
+          onClick={() => {
+            uiStateStoreActions.setItemControls({
+              type: 'LAYER_CONTROLS'
+            });
+            uiStateStoreActions.setMode({
+              type: 'CURSOR',
+              showCursor: true,
+              mousedownItem: null
+            });
+          }}
+          isActive={itemControls?.type === 'LAYER_CONTROLS'}
         />
       </Stack>
     </UiElement>
