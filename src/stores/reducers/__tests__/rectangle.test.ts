@@ -95,4 +95,59 @@ describe('Rectangle reducer', () => {
     expect(finalRectangle?.color).toBe('color2');
     expect(finalRectangle?.colorValue).toBeUndefined();
   });
+
+  test('updateRectangle updates outline color', () => {
+    const state = createMockState();
+    const updates = { id: 'rect1', outlineColor: '#0000ff' };
+
+    const newState = updateRectangle(updates, {
+      viewId: 'view1',
+      state
+    });
+
+    const rectangle = newState.model.views[0].rectangles?.[0];
+    expect(rectangle?.outlineColor).toBe('#0000ff');
+  });
+
+  test('updateRectangle updates outline width', () => {
+    const state = createMockState();
+    const updates = { id: 'rect1', outlineWidth: 3 };
+
+    const newState = updateRectangle(updates, {
+      viewId: 'view1',
+      state
+    });
+
+    const rectangle = newState.model.views[0].rectangles?.[0];
+    expect(rectangle?.outlineWidth).toBe(3);
+  });
+
+  test('updateRectangle clears outline color when fill color changes', () => {
+    const state = createMockState();
+    // First, set a custom outline color
+    const stateWithOutline = updateRectangle(
+      { id: 'rect1', outlineColor: '#ff00ff' },
+      {
+        viewId: 'view1',
+        state
+      }
+    );
+
+    const rectangleWithOutline =
+      stateWithOutline.model.views[0].rectangles?.[0];
+    expect(rectangleWithOutline?.outlineColor).toBe('#ff00ff');
+
+    // Now, change fill color and clear outline color
+    const finalState = updateRectangle(
+      { id: 'rect1', colorValue: '#00ff00', outlineColor: undefined },
+      {
+        viewId: 'view1',
+        state: stateWithOutline
+      }
+    );
+
+    const finalRectangle = finalState.model.views[0].rectangles?.[0];
+    expect(finalRectangle?.colorValue).toBe('#00ff00');
+    expect(finalRectangle?.outlineColor).toBeUndefined();
+  });
 });

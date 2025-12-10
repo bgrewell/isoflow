@@ -12,6 +12,7 @@ export const Rectangle = ({
   color: colorId,
   colorValue,
   outlineColor,
+  outlineWidth,
   transparency = 1
 }: Props) => {
   const color = useColor(colorId);
@@ -23,6 +24,9 @@ export const Rectangle = ({
   const strokeColor =
     outlineColor || getColorVariant(fillColor, 'dark', { grade: 2 });
 
+  // Use outlineWidth if provided, otherwise use default of 1
+  const strokeWidth = outlineWidth ?? 1;
+
   return (
     <IsoTileArea
       from={from}
@@ -31,7 +35,7 @@ export const Rectangle = ({
       cornerRadius={22}
       stroke={{
         color: strokeColor,
-        width: 1
+        width: strokeWidth
       }}
       opacity={transparency}
     />
