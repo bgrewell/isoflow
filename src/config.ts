@@ -78,7 +78,7 @@ export const TEXTBOX_PADDING = 0.2;
 export const TEXTBOX_FONT_WEIGHT = 'bold';
 
 export const RECTANGLE_DEFAULTS: Required<
-  Omit<Rectangle, 'id' | 'from' | 'to' | 'color'>
+  Omit<Rectangle, 'id' | 'from' | 'to' | 'color' | 'colorValue' | 'outlineColor'>
 > = {
   transparency: 1,
   zIndex: 0
