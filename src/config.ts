@@ -78,14 +78,11 @@ export const TEXTBOX_PADDING = 0.2;
 export const TEXTBOX_FONT_WEIGHT = 'bold';
 
 export const RECTANGLE_DEFAULTS: Required<
-  Omit<Rectangle, 'id' | 'from' | 'to' | 'color' | 'colorValue' | 'outlineColor'>
+  Omit<Rectangle, 'id' | 'from' | 'to' | 'color'>
 > = {
   transparency: 1,
   zIndex: 0
 };
-
-export const RECTANGLE_DEFAULT_FILL_COLOR = '#a5b8f3';
-export const RECTANGLE_DEFAULT_OUTLINE_COLOR = '#000000';
 
 export const ZOOM_INCREMENT = 0.2;
 export const MIN_ZOOM = 0.2;
