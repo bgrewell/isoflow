@@ -7,9 +7,16 @@ interface Props {
 }
 
 export const Rectangles = ({ rectangles }: Props) => {
+  // Sort rectangles by zIndex in ascending order (lower zIndex renders first/behind)
+  const sortedRectangles = [...rectangles].sort((a, b) => {
+    const aZIndex = a.zIndex ?? 0;
+    const bZIndex = b.zIndex ?? 0;
+    return aZIndex - bZIndex;
+  });
+
   return (
     <>
-      {[...rectangles].reverse().map((rectangle) => {
+      {sortedRectangles.map((rectangle) => {
         return <Rectangle key={rectangle.id} {...rectangle} />;
       })}
     </>

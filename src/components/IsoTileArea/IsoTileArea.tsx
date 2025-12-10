@@ -13,6 +13,7 @@ interface Props {
     width: number;
     color: string;
   };
+  opacity?: number;
 }
 
 export const IsoTileArea = ({
@@ -20,7 +21,8 @@ export const IsoTileArea = ({
   to,
   fill = 'none',
   cornerRadius = 0,
-  stroke
+  stroke,
+  opacity = 1
 }: Props) => {
   const { css, pxSize } = useIsoProjection({
     from,
@@ -43,6 +45,7 @@ export const IsoTileArea = ({
         height={pxSize.height}
         fill={fill}
         rx={cornerRadius}
+        opacity={opacity}
         {...strokeParams}
       />
     </Svg>

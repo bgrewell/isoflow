@@ -85,6 +85,13 @@ export const LayerControls = () => {
     [updateLayer]
   );
 
+  const handleUpdateTransparency = useCallback(
+    (layerId: string, transparency: number) => {
+      updateLayer(layerId, { transparency });
+    },
+    [updateLayer]
+  );
+
   return (
     <ControlsContainer header={<Header title="Layer Management" />}>
       <Section>
@@ -153,7 +160,11 @@ export const LayerControls = () => {
                             : 'inherit'
                       }}
                     >
-                      {layer.visible ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                      {layer.visible ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
                     </MuiIconButton>
                     <MuiIconButton
                       edge="end"
@@ -238,6 +249,25 @@ export const LayerControls = () => {
                 sx={{ mb: 2 }}
               />
 
+              <Typography variant="body2" gutterBottom>
+                Transparency:{' '}
+                {Math.round((selectedLayer.transparency ?? 1) * 100)}%
+              </Typography>
+              <Slider
+                value={selectedLayer.transparency ?? 1}
+                onChange={(_, value) => {
+                  handleUpdateTransparency(selectedLayer.id, value as number);
+                }}
+                min={0}
+                max={1}
+                step={0.01}
+                valueLabelDisplay="auto"
+                valueLabelFormat={(value) => {
+                  return `${Math.round(value * 100)}%`;
+                }}
+                sx={{ mb: 2 }}
+              />
+
               <FormControlLabel
                 control={
                   <Switch
@@ -253,7 +283,9 @@ export const LayerControls = () => {
                 label="Visible"
               />
 
-              <Box sx={{ mt: 2, p: 1, bgcolor: 'action.hover', borderRadius: 1 }}>
+              <Box
+                sx={{ mt: 2, p: 1, bgcolor: 'action.hover', borderRadius: 1 }}
+              >
                 <Typography variant="caption" color="text.secondary">
                   {selectedLayer.items.length} item(s) on this layer
                 </Typography>

@@ -27,9 +27,18 @@ export const Connectors = ({ connectors }: Props) => {
     return null;
   }, [mode, itemControls]);
 
+  // Sort connectors by zIndex in ascending order (lower zIndex renders first/behind)
+  const sortedConnectors = useMemo(() => {
+    return [...connectors].sort((a, b) => {
+      const aZIndex = a.zIndex ?? 0;
+      const bZIndex = b.zIndex ?? 0;
+      return aZIndex - bZIndex;
+    });
+  }, [connectors]);
+
   return (
     <>
-      {[...connectors].reverse().map((connector) => {
+      {sortedConnectors.map((connector) => {
         return (
           <Connector
             key={connector.id}
