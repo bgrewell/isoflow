@@ -69,4 +69,40 @@ describe('Rectangle schema', () => {
     const result = rectangleSchema.safeParse(rectangle);
     expect(result.success).toBe(true);
   });
+
+  test('rejects invalid hex color for colorValue', () => {
+    const rectangle = {
+      id: 'rect1',
+      colorValue: 'red', // Invalid: not a hex color
+      from: { x: 0, y: 0 },
+      to: { x: 2, y: 2 }
+    };
+
+    const result = rectangleSchema.safeParse(rectangle);
+    expect(result.success).toBe(false);
+  });
+
+  test('rejects invalid hex color for outlineColor', () => {
+    const rectangle = {
+      id: 'rect1',
+      outlineColor: '#gggggg', // Invalid: not valid hex characters
+      from: { x: 0, y: 0 },
+      to: { x: 2, y: 2 }
+    };
+
+    const result = rectangleSchema.safeParse(rectangle);
+    expect(result.success).toBe(false);
+  });
+
+  test('rejects short hex color format', () => {
+    const rectangle = {
+      id: 'rect1',
+      colorValue: '#fff', // Invalid: 3 character hex not supported
+      from: { x: 0, y: 0 },
+      to: { x: 2, y: 2 }
+    };
+
+    const result = rectangleSchema.safeParse(rectangle);
+    expect(result.success).toBe(false);
+  });
 });

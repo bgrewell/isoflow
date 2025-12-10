@@ -5,6 +5,10 @@ import { ColorSelector } from 'src/components/ColorSelector/ColorSelector';
 import { ColorPicker } from 'src/components/ColorSelector/ColorPicker';
 import { useUiStateStore } from 'src/stores/uiStateStore';
 import { useScene } from 'src/hooks/useScene';
+import {
+  RECTANGLE_DEFAULT_FILL_COLOR,
+  RECTANGLE_DEFAULT_OUTLINE_COLOR
+} from 'src/config';
 import { ControlsContainer } from '../components/ControlsContainer';
 import { Section } from '../components/Section';
 import { DeleteButton } from '../components/DeleteButton';
@@ -63,7 +67,7 @@ export const RectangleControls = ({ id }: Props) => {
       </Section>
       <Section title="Custom fill color">
         <ColorPicker
-          value={rectangle.colorValue || '#a5b8f3'}
+          value={rectangle.colorValue || RECTANGLE_DEFAULT_FILL_COLOR}
           onChange={(newColor) => {
             updateRectangle(rectangle.id, { colorValue: newColor });
           }}
@@ -71,7 +75,7 @@ export const RectangleControls = ({ id }: Props) => {
       </Section>
       <Section title="Outline color">
         <ColorPicker
-          value={rectangle.outlineColor || '#000000'}
+          value={rectangle.outlineColor || RECTANGLE_DEFAULT_OUTLINE_COLOR}
           onChange={(newColor) => {
             updateRectangle(rectangle.id, { outlineColor: newColor });
           }}

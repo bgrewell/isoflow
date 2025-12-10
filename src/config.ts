@@ -84,6 +84,9 @@ export const RECTANGLE_DEFAULTS: Required<
   zIndex: 0
 };
 
+export const RECTANGLE_DEFAULT_FILL_COLOR = '#a5b8f3';
+export const RECTANGLE_DEFAULT_OUTLINE_COLOR = '#000000';
+
 export const ZOOM_INCREMENT = 0.2;
 export const MIN_ZOOM = 0.2;
 export const MAX_ZOOM = 1;
