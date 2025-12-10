@@ -50,7 +50,8 @@ export const LAYER_DEFAULTS: Required<Omit<Layer, 'id' | 'description'>> = {
   name: 'Untitled layer',
   items: [],
   zOffset: 0,
-  visible: true
+  visible: true,
+  transparency: 1
 };
 
 export const CONNECTOR_DEFAULTS: Required<Omit<Connector, 'id' | 'color'>> = {

@@ -29,7 +29,8 @@ describe('Layer Reducers', () => {
         name: 'New Layer',
         items: [],
         zOffset: 2,
-        visible: true
+        visible: true,
+        transparency: 1
       };
 
       const result = createLayer(newLayer, {
@@ -68,7 +69,8 @@ describe('Layer Reducers', () => {
         name: 'New Layer',
         items: [],
         zOffset: 0,
-        visible: true
+        visible: true,
+        transparency: 1
       };
 
       const result = createLayer(newLayer, {
@@ -98,7 +100,8 @@ describe('Layer Reducers', () => {
                   name: 'Original Name',
                   items: [],
                   zOffset: 0,
-                  visible: true
+                  visible: true,
+                  transparency: 1
                 }
               ]
             }
@@ -141,14 +144,16 @@ describe('Layer Reducers', () => {
                   name: 'Layer 1',
                   items: [],
                   zOffset: 0,
-                  visible: true
+                  visible: true,
+                  transparency: 1
                 },
                 {
                   id: 'layer2',
                   name: 'Layer 2',
                   items: [],
                   zOffset: 3,
-                  visible: true
+                  visible: true,
+                  transparency: 1
                 }
               ]
             }

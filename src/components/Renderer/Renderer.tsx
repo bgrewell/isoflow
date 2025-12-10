@@ -101,13 +101,13 @@ export const Renderer = ({ showGrid, backgroundColor }: RendererProps) => {
           height: '100%'
         }}
       />
-      <SceneLayer>
-        {layers.length > 0 ? (
-          <Layers layers={layers} />
-        ) : (
+      {layers.length > 0 ? (
+        <Layers layers={layers} />
+      ) : (
+        <SceneLayer>
           <Nodes nodes={items} />
-        )}
-      </SceneLayer>
+        </SceneLayer>
+      )}
       <SceneLayer>
         <TransformControlsManager />
       </SceneLayer>

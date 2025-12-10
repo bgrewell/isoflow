@@ -32,6 +32,44 @@ describe('Layer Schema', () => {
     const result = layerSchema.parse(layer);
     expect(result.zOffset).toBe(0);
     expect(result.visible).toBe(true);
+    expect(result.transparency).toBe(1);
+  });
+
+  test('validates transparency value within range', () => {
+    const layer = {
+      id: 'layer1',
+      name: 'Test Layer',
+      items: [],
+      transparency: 0.5
+    };
+
+    const result = layerSchema.safeParse(layer);
+    expect(result.success).toBe(true);
+    if (result.success) {
+      expect(result.data.transparency).toBe(0.5);
+    }
+  });
+
+  test('rejects invalid transparency values', () => {
+    const invalidLayers = [
+      {
+        id: 'layer1',
+        name: 'Test Layer',
+        items: [],
+        transparency: 1.5 // Too high
+      },
+      {
+        id: 'layer2',
+        name: 'Test Layer',
+        items: [],
+        transparency: -0.1 // Too low
+      }
+    ];
+
+    invalidLayers.forEach((layer) => {
+      const result = layerSchema.safeParse(layer);
+      expect(result.success).toBe(false);
+    });
   });
 
   test('validates layers array', () => {
