@@ -7,6 +7,11 @@ interface Props {
 }
 
 export const Nodes = ({ nodes }: Props) => {
+  // Helper function to calculate natural isometric ordering based on tile position
+  const getTileOrder = (node: ViewItem) => {
+    return -node.tile.x - node.tile.y;
+  };
+
   // Sort nodes by zIndex first, then by tile position for natural isometric ordering
   const sortedNodes = [...nodes].sort((a, b) => {
     const aZIndex = a.zIndex ?? 0;
@@ -17,7 +22,7 @@ export const Nodes = ({ nodes }: Props) => {
     }
 
     // If zIndex is the same, use tile position for natural ordering
-    return -a.tile.x - a.tile.y - (-b.tile.x - b.tile.y);
+    return getTileOrder(a) - getTileOrder(b);
   });
 
   return (
@@ -26,7 +31,7 @@ export const Nodes = ({ nodes }: Props) => {
         return (
           <Node
             key={node.id}
-            order={node.zIndex ?? -node.tile.x - node.tile.y}
+            order={node.zIndex ?? getTileOrder(node)}
             node={node}
           />
         );
