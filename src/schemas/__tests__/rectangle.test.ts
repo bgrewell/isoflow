@@ -105,4 +105,41 @@ describe('Rectangle schema', () => {
     const result = rectangleSchema.safeParse(rectangle);
     expect(result.success).toBe(false);
   });
+
+  test('validates rectangle with outline width', () => {
+    const rectangle = {
+      id: 'rect1',
+      color: 'color1',
+      outlineWidth: 3,
+      from: { x: 0, y: 0 },
+      to: { x: 2, y: 2 }
+    };
+
+    const result = rectangleSchema.safeParse(rectangle);
+    expect(result.success).toBe(true);
+  });
+
+  test('rejects outline width below minimum', () => {
+    const rectangle = {
+      id: 'rect1',
+      outlineWidth: -1,
+      from: { x: 0, y: 0 },
+      to: { x: 2, y: 2 }
+    };
+
+    const result = rectangleSchema.safeParse(rectangle);
+    expect(result.success).toBe(false);
+  });
+
+  test('rejects outline width above maximum', () => {
+    const rectangle = {
+      id: 'rect1',
+      outlineWidth: 11,
+      from: { x: 0, y: 0 },
+      to: { x: 2, y: 2 }
+    };
+
+    const result = rectangleSchema.safeParse(rectangle);
+    expect(result.success).toBe(false);
+  });
 });

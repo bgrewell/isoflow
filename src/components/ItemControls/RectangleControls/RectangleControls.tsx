@@ -60,7 +60,11 @@ export const RectangleControls = ({ id }: Props) => {
       <Section>
         <ColorSelector
           onChange={(color) => {
-            updateRectangle(rectangle.id, { color });
+            updateRectangle(rectangle.id, {
+              color,
+              colorValue: undefined,
+              outlineColor: undefined
+            });
           }}
           activeColor={rectangle.color}
         />
@@ -69,7 +73,10 @@ export const RectangleControls = ({ id }: Props) => {
         <ColorPicker
           value={rectangle.colorValue || RECTANGLE_DEFAULT_FILL_COLOR}
           onChange={(newColor) => {
-            updateRectangle(rectangle.id, { colorValue: newColor });
+            updateRectangle(rectangle.id, {
+              colorValue: newColor,
+              outlineColor: undefined
+            });
           }}
         />
       </Section>
@@ -79,6 +86,21 @@ export const RectangleControls = ({ id }: Props) => {
           onChange={(newColor) => {
             updateRectangle(rectangle.id, { outlineColor: newColor });
           }}
+        />
+      </Section>
+      <Section>
+        <Typography variant="body2" gutterBottom>
+          Outline width: {rectangle.outlineWidth ?? 1}
+        </Typography>
+        <Slider
+          value={rectangle.outlineWidth ?? 1}
+          onChange={(_, value) => {
+            updateRectangle(rectangle.id, { outlineWidth: value as number });
+          }}
+          min={0}
+          max={10}
+          step={0.5}
+          valueLabelDisplay="auto"
         />
       </Section>
       <Section>

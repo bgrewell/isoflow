@@ -38,10 +38,7 @@ export const createRectangle = (
     }
   });
 
-  return updateRectangle(newRectangle, {
-    viewId,
-    state: newState
-  });
+  return newState;
 };
 
 export const deleteRectangle = (
