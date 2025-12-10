@@ -35,10 +35,19 @@ export const PlaceIcon: ModeActions = {
         icon: uiState.mode.id
       });
 
+      // Calculate zIndex to place new item on top of existing items
+      const maxZIndex = Math.max(
+        0,
+        ...scene.items.map((item) => {
+          return item.zIndex ?? 0;
+        })
+      );
+
       scene.createViewItem({
         ...VIEW_ITEM_DEFAULTS,
         id: modelItemId,
-        tile: uiState.mouse.position.tile
+        tile: uiState.mouse.position.tile,
+        zIndex: maxZIndex + 1
       });
     }
 
